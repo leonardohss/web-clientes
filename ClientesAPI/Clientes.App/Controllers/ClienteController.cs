@@ -1,4 +1,5 @@
-﻿using Clientes.Dominio.Entidades;
+﻿using Clientes.App.Dtos;
+using Clientes.Dominio.Entidades;
 using Clientes.Dominio.Interfaces;
 using Clientes.Servico.Validadores;
 using Microsoft.AspNetCore.Mvc;
@@ -10,29 +11,29 @@ namespace Clientes.App.Controllers
     [ApiController]
     public class ClienteController : ControllerBase
     {
-        private IBaseServico<Cliente> _clienteServico;
+        private IClienteServico _clienteServico;
 
-        public ClienteController(IBaseServico<Cliente> clienteServico)
+        public ClienteController(IClienteServico clienteServico)
         {
             _clienteServico = clienteServico;
         }
 
         [HttpPost]
-        public IActionResult Adicionar([FromBody] Cliente cliente)
+        public IActionResult Adicionar([FromBody] ClienteDTO clienteDto)
         {
-            if (cliente == null)
+            if (clienteDto == null)
                 return NotFound();
 
-            return Execute(() => _clienteServico.Adicionar<ClienteValidador>(cliente).Id);
+            return Execute(() => _clienteServico.Adicionar<ClienteValidador, ClienteDTO>(clienteDto).Id);
         }
 
         [HttpPut]
-        public IActionResult Atualizar([FromBody] Cliente cliente)
+        public IActionResult Atualizar([FromBody] ClienteDTO clienteDto)
         {
-            if (cliente == null)
+            if (clienteDto == null)
                 return NotFound();
 
-            return Execute(() => _clienteServico.Atualizar<ClienteValidador>(cliente));
+            return Execute(() => _clienteServico.Atualizar<ClienteValidador, ClienteDTO>(clienteDto));
         }
 
         [HttpDelete("{id}")]

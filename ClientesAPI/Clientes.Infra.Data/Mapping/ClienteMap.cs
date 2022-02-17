@@ -25,7 +25,7 @@ namespace Clientes.Infra.Data.Mapping
             builder.Property(prop => prop.Cpf)
                 .HasConversion(prop => prop.ToString(), prop => prop)
                 .IsRequired()
-                .HasColumnType("varchar(100)");
+                .HasColumnType("varchar(11)");
 
             builder.Property(prop => prop.DataDeNascimento)
                 .IsRequired()
@@ -33,9 +33,7 @@ namespace Clientes.Infra.Data.Mapping
 
             builder.Property(prop => prop.Idade)
                 .IsRequired()
-                .HasColumnType("integer");
-
-            builder.Property(prop => prop.Profissao.Id);
+                .HasColumnType("tinyint");
 
             builder.HasOne(prop => prop.Profissao)
                 .WithMany(prop => prop.Clientes)

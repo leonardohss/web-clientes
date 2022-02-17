@@ -1,3 +1,5 @@
+using AutoMapper;
+using Clientes.App.Dtos;
 using Clientes.Dominio.Entidades;
 using Clientes.Dominio.Interfaces;
 using Clientes.Infra.Data.Contexto;
@@ -35,7 +37,7 @@ namespace Clientes.App
 
             services.AddDbContext<SqlServerContexto>(options => 
             {
-                options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Test");
+                options.UseSqlServer(Configuration.GetConnectionString("Connectionstring"));
             });
 
             AddDependencies(services);
@@ -74,10 +76,13 @@ namespace Clientes.App
 
         protected virtual void AddDependencies(IServiceCollection services)
         {
-            services.AddSingleton<IBaseRepositorio<Cliente>, BaseRepositorio<Cliente>>();
-            services.AddSingleton<IBaseServico<Cliente>, BaseServico<Cliente>>();
+            services.AddScoped<IBaseRepositorio<Cliente>, BaseRepositorio<Cliente>>();
+            services.AddScoped<IBaseServico<Cliente>, BaseServico<Cliente>>();
 
-
+            services.AddSingleton(new MapperConfiguration(config =>
+            {
+                config.CreateMap<ClienteDTO, Cliente>();
+            }).CreateMapper());
         }
     }
 }

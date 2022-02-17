@@ -1,10 +1,6 @@
 ﻿using Clientes.Dominio.Entidades;
 using FluentValidation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clientes.Servico.Validadores
 {
@@ -23,15 +19,12 @@ namespace Clientes.Servico.Validadores
 			RuleFor(c => c.Cpf)
 				.NotEmpty().WithMessage("Por favor, insira o Cpf do cliente.")
 				.NotNull().WithMessage("Por favor, insira o Cpf do cliente.")
-				.When(x => !CpfValido(x.Cpf)).WithMessage("Cpf informado inválido.");
+				.Must(cpf => CpfValido(cpf)).WithMessage("Cpf informado inválido.");
 
 			RuleFor(c => c.DataDeNascimento)
                 .NotEmpty().WithMessage("Por favor, insira a Data De Nascimento do cliente.")
-                .NotNull().WithMessage("Por favor, insira o Data De Nascimento do cliente.");
-
-            RuleFor(c => c.Idade)
-                .LessThan(140).WithMessage("A data de nascimento informada é inválida.")
-                .GreaterThanOrEqualTo(0).WithMessage("A data de nascimento informada é inválida.");
+                .NotNull().WithMessage("Por favor, insira o Data De Nascimento do cliente.")
+				.Must(dataDeNascimento => DataDeNascimentoValida(dataDeNascimento)).WithMessage("A Data De Nascimento informada é inválida.");
         }
 
 		private static bool CpfValido(string cpf)
@@ -69,5 +62,11 @@ namespace Clientes.Servico.Validadores
 			digito = digito + resto.ToString();
 			return cpf.EndsWith(digito);
 		}
+
+		public static bool DataDeNascimentoValida(DateTime dataDeNascimento)
+        {
+			var anos = DateTime.Now.Year - dataDeNascimento.Year;
+			return dataDeNascimento <= DateTime.Now || anos >= 0 || anos <= 150;
+        }
 	}
 }

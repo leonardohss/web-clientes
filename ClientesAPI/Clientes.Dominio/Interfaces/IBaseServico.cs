@@ -6,8 +6,12 @@ namespace Clientes.Dominio.Interfaces
 {
     public interface IBaseServico<TEntidade> where TEntidade : BaseEntidade
     {
-        TEntidade Adicionar<TValidator>(TEntidade objeto) where TValidator : AbstractValidator<TEntidade>;
-        TEntidade Atualizar<TValidator>(TEntidade objeto) where TValidator : AbstractValidator<TEntidade>;
+        TEntidade Adicionar<TValidator, TInput>(TInput objeto)
+            where TValidator : AbstractValidator<TEntidade>
+            where TInput : class;
+        TEntidade Atualizar<TValidator, TInput>(TInput objeto)
+            where TValidator : AbstractValidator<TEntidade>
+            where TInput : class;
         void DeletarPorId(int id);
         IList<TEntidade> Listar();
         TEntidade SelecionarPorId(int id);

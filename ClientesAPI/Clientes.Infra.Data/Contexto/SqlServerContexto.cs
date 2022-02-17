@@ -8,7 +8,6 @@ namespace Clientes.Infra.Data.Contexto
     {
         public SqlServerContexto(DbContextOptions<SqlServerContexto> options) : base(options)
         {
-
         }
 
         public DbSet<Cliente> Cliente { get; set; }

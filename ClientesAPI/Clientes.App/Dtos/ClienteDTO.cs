@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Clientes.Dominio.Entidades
+namespace Clientes.App.Dtos
 {
-    public class Cliente : BaseEntidade
+    public class ClienteDTO
     {
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
@@ -10,6 +10,5 @@ namespace Clientes.Dominio.Entidades
         public DateTime DataDeNascimento { get; set; }
         public byte Idade { get; set; }
         public int IdProfissao { get; set; }
-        public Profissao Profissao { get; set; }
     }
 }

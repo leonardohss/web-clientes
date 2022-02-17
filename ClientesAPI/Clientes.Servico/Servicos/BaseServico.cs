@@ -3,27 +3,38 @@ using Clientes.Dominio.Entidades;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace Clientes.Servico.Servicos
 {
     public class BaseServico<TEntidade> : IBaseServico<TEntidade> where TEntidade : BaseEntidade
     {
-        private readonly IBaseRepositorio<TEntidade> _baseRepositorio;
+        protected readonly IBaseRepositorio<TEntidade> _baseRepositorio;
+        protected readonly IMapper _mapper;
 
-        public BaseServico(IBaseRepositorio<TEntidade> baseRepositorio)
+        public BaseServico(IBaseRepositorio<TEntidade> baseRepositorio, IMapper mapper)
         {
             _baseRepositorio = baseRepositorio;
+            _mapper = mapper;
         }
 
-        public TEntidade Adicionar<TValidator>(TEntidade objeto) where TValidator : AbstractValidator<TEntidade>
+        public TEntidade Adicionar<TValidator, TInput>(TInput input) 
+            where TValidator : AbstractValidator<TEntidade>
+            where TInput : class
         {
+            TEntidade objeto = _mapper.Map<TEntidade>(input);
+
             Validate(objeto, Activator.CreateInstance<TValidator>());
             _baseRepositorio.Inserir(objeto);
             return objeto;
         }
 
-        public TEntidade Atualizar<TValidator>(TEntidade objeto) where TValidator : AbstractValidator<TEntidade>
+        public TEntidade Atualizar<TValidator, TInput>(TInput input)
+            where TValidator : AbstractValidator<TEntidade>
+            where TInput : class
         {
+            TEntidade objeto = _mapper.Map<TEntidade>(input);
+
             Validate(objeto, Activator.CreateInstance<TValidator>());
             _baseRepositorio.Atualizar(objeto);
             return objeto;
@@ -35,7 +46,7 @@ namespace Clientes.Servico.Servicos
 
         public TEntidade SelecionarPorId(int id) => _baseRepositorio.SelecionarPorId(id);
 
-        private void Validate(TEntidade objeto, AbstractValidator<TEntidade> validator)
+        protected void Validate(TEntidade objeto, AbstractValidator<TEntidade> validator)
         {
             if (objeto == null)
                 throw new Exception("Objeto inválido!");
