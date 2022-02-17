@@ -24,7 +24,7 @@ namespace Clientes.App.Controllers
             if (clienteDto == null)
                 return NotFound();
 
-            return Execute(() => _clienteServico.Adicionar<ClienteValidador, ClienteDTO>(clienteDto).Id);
+            return Execute(() => _clienteServico.AdicionarCliente<ClienteValidador, ClienteDTO>(clienteDto).Id);
         }
 
         [HttpPut]
@@ -33,7 +33,7 @@ namespace Clientes.App.Controllers
             if (clienteDto == null)
                 return NotFound();
 
-            return Execute(() => _clienteServico.Atualizar<ClienteValidador, ClienteDTO>(clienteDto));
+            return Execute(() => _clienteServico.AtualizarCliente<ClienteValidador, ClienteDTO>(clienteDto));
         }
 
         [HttpDelete("{id}")]

@@ -12,7 +12,7 @@ namespace Clientes.Servico.Servicos
         {
         }
 
-        public new Cliente Adicionar<TValidator, TInput>(TInput clienteInput) 
+        public Cliente AdicionarCliente<TValidator, TInput>(TInput clienteInput) 
             where TValidator : AbstractValidator<Cliente>
             where TInput : class
         {
@@ -24,7 +24,7 @@ namespace Clientes.Servico.Servicos
             return cliente;
         }
 
-        public new Cliente Atualizar<TValidator, TInput>(TInput clienteInput)
+        public Cliente AtualizarCliente<TValidator, TInput>(TInput clienteInput)
             where TValidator : AbstractValidator<Cliente>
             where TInput : class
         {

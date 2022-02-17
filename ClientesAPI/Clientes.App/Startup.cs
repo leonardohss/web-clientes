@@ -7,18 +7,11 @@ using Clientes.Infra.Data.Repositorio;
 using Clientes.Servico.Servicos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Clientes.App
 {
@@ -78,6 +71,7 @@ namespace Clientes.App
         {
             services.AddScoped<IBaseRepositorio<Cliente>, BaseRepositorio<Cliente>>();
             services.AddScoped<IBaseServico<Cliente>, BaseServico<Cliente>>();
+            services.AddScoped<IClienteServico, ClienteServico>();
 
             services.AddSingleton(new MapperConfiguration(config =>
             {
