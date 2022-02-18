@@ -9,6 +9,6 @@ namespace Clientes.App.Dtos
         public string Cpf { get; set; }
         public DateTime DataDeNascimento { get; set; }
         public byte Idade { get; set; }
-        public int IdProfissao { get; set; }
+        public int? IdProfissao { get; set; }
     }
 }

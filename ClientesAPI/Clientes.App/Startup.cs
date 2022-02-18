@@ -30,7 +30,7 @@ namespace Clientes.App
 
             services.AddDbContext<SqlServerContexto>(options => 
             {
-                options.UseSqlServer(Configuration.GetConnectionString("Connectionstring"));
+                options.UseSqlServer("Server=localhost;Initial Catalog=Clientes;Trusted_Connection=True;");
             });
 
             AddDependencies(services);
@@ -72,6 +72,9 @@ namespace Clientes.App
             services.AddScoped<IBaseRepositorio<Cliente>, BaseRepositorio<Cliente>>();
             services.AddScoped<IBaseServico<Cliente>, BaseServico<Cliente>>();
             services.AddScoped<IClienteServico, ClienteServico>();
+
+            services.AddScoped<IBaseRepositorio<Profissao>, BaseRepositorio<Profissao>>();
+            services.AddScoped<IBaseServico<Profissao>, BaseServico<Profissao>>();
 
             services.AddSingleton(new MapperConfiguration(config =>
             {

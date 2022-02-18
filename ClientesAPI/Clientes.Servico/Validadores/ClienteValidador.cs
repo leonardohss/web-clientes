@@ -66,7 +66,7 @@ namespace Clientes.Servico.Validadores
 		public static bool DataDeNascimentoValida(DateTime dataDeNascimento)
         {
 			var anos = DateTime.Now.Year - dataDeNascimento.Year;
-			return dataDeNascimento <= DateTime.Now || anos >= 0 || anos <= 150;
+			return dataDeNascimento <= DateTime.Now && (anos >= 0 || anos <= 150);
         }
 	}
 }

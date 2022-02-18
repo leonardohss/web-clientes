@@ -9,7 +9,7 @@ namespace Clientes.Dominio.Entidades
         public string Cpf { get; set; }
         public DateTime DataDeNascimento { get; set; }
         public byte Idade { get; set; }
-        public int IdProfissao { get; set; }
+        public int? IdProfissao { get; set; }
         public Profissao Profissao { get; set; }
     }
 }

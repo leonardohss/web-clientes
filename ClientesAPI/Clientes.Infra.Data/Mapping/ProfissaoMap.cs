@@ -17,10 +17,6 @@ namespace Clientes.Infra.Data.Mapping
                 .IsRequired()
                 .HasColumnType("varchar(50)");
 
-            builder.HasMany(prop => prop.Clientes)
-                .WithOne(prop => prop.Profissao)
-                .HasForeignKey(prop => prop.IdProfissao)
-                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

@@ -35,9 +35,13 @@ namespace Clientes.Infra.Data.Mapping
                 .IsRequired()
                 .HasColumnType("tinyint");
 
+            builder.Property(prop => prop.IdProfissao)
+                .IsRequired(false);
+
             builder.HasOne(prop => prop.Profissao)
                 .WithMany(prop => prop.Clientes)
                 .HasForeignKey(prop => prop.IdProfissao)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.SetNull);
         }
     }
