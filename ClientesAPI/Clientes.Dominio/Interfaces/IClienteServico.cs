@@ -12,5 +12,7 @@ namespace Clientes.Dominio.Interfaces
         Cliente AtualizarCliente<TValidator, TInput>(TInput clienteInput)
             where TValidator : AbstractValidator<Cliente>
             where TInput : class;
+
+        Cliente SelecionarClientePorId(int id);
     }
 }

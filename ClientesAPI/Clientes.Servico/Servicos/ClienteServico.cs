@@ -10,10 +10,12 @@ namespace Clientes.Servico.Servicos
     public class ClienteServico : BaseServico<Cliente>, IClienteServico
     {
         private readonly IBaseServico<Profissao> _profissaoServico;
+        private readonly IClienteRepositorio _clienteRepositorio;
 
-        public ClienteServico(IBaseRepositorio<Cliente> clienteRepositorio, IMapper mapper, IBaseServico<Profissao> profissaoServico) : base(clienteRepositorio, mapper)
+        public ClienteServico(IBaseRepositorio<Cliente> baseRepositorio, IMapper mapper, IBaseServico<Profissao> profissaoServico, IClienteRepositorio clienteRepositorio) : base(baseRepositorio, mapper)
         {
             _profissaoServico = profissaoServico;
+            _clienteRepositorio = clienteRepositorio;
         }
 
         public Cliente AdicionarCliente<TValidator, TInput>(TInput clienteInput) 
@@ -22,11 +24,11 @@ namespace Clientes.Servico.Servicos
         {
             Cliente cliente = _mapper.Map<Cliente>(clienteInput);
 
-            Validate(cliente, Activator.CreateInstance<TValidator>());
+            Validar(cliente, Activator.CreateInstance<TValidator>());
             VerificarProfissaoInserida(cliente.IdProfissao);
 
             AjustarDadosDoCliente(cliente);
-            _baseRepositorio.Inserir(cliente);
+            _clienteRepositorio.Inserir(cliente);
             return cliente;
         }
 
@@ -36,12 +38,17 @@ namespace Clientes.Servico.Servicos
         {
             Cliente cliente = _mapper.Map<Cliente>(clienteInput);
 
-            Validate(cliente, Activator.CreateInstance<TValidator>());
+            Validar(cliente, Activator.CreateInstance<TValidator>());
             VerificarProfissaoInserida(cliente.IdProfissao);
 
             AjustarDadosDoCliente(cliente);
-            _baseRepositorio.Atualizar(cliente);
+            _clienteRepositorio.Atualizar(cliente);
             return cliente;
+        }
+
+        public Cliente SelecionarClientePorId(int id)
+        {
+            return _clienteRepositorio.SelecionarClientePorId(id);
         }
 
         private void VerificarProfissaoInserida(int? idProfissao)

@@ -71,6 +71,7 @@ namespace Clientes.App
         {
             services.AddScoped<IBaseRepositorio<Cliente>, BaseRepositorio<Cliente>>();
             services.AddScoped<IBaseServico<Cliente>, BaseServico<Cliente>>();
+            services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
             services.AddScoped<IClienteServico, ClienteServico>();
 
             services.AddScoped<IBaseRepositorio<Profissao>, BaseRepositorio<Profissao>>();

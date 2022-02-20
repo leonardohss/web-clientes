@@ -24,7 +24,7 @@ namespace Clientes.Servico.Servicos
         {
             TEntidade objeto = _mapper.Map<TEntidade>(input);
 
-            Validate(objeto, Activator.CreateInstance<TValidator>());
+            Validar(objeto, Activator.CreateInstance<TValidator>());
             _baseRepositorio.Inserir(objeto);
             return objeto;
         }
@@ -35,7 +35,7 @@ namespace Clientes.Servico.Servicos
         {
             TEntidade objeto = _mapper.Map<TEntidade>(input);
 
-            Validate(objeto, Activator.CreateInstance<TValidator>());
+            Validar(objeto, Activator.CreateInstance<TValidator>());
             _baseRepositorio.Atualizar(objeto);
             return objeto;
         }
@@ -46,7 +46,7 @@ namespace Clientes.Servico.Servicos
 
         public TEntidade SelecionarPorId(int id) => _baseRepositorio.SelecionarPorId(id);
 
-        protected void Validate(TEntidade objeto, AbstractValidator<TEntidade> validator)
+        protected void Validar(TEntidade objeto, AbstractValidator<TEntidade> validator)
         {
             if (objeto == null)
                 throw new Exception("Objeto inválido!");

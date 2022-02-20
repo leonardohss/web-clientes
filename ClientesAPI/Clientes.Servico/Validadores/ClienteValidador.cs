@@ -6,7 +6,7 @@ namespace Clientes.Servico.Validadores
 {
     public class ClienteValidador : AbstractValidator<Cliente>
     {
-        public ClienteValidador()
+		public ClienteValidador()
         {
             RuleFor(c => c.Nome)
                 .NotEmpty().WithMessage("Por favor, insira o Nome do cliente.")

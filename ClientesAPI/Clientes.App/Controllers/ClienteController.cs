@@ -1,5 +1,4 @@
 ﻿using Clientes.App.Dtos;
-using Clientes.Dominio.Entidades;
 using Clientes.Dominio.Interfaces;
 using Clientes.Servico.Validadores;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +23,7 @@ namespace Clientes.App.Controllers
             if (clienteDto == null)
                 return NotFound();
 
-            return Execute(() => _clienteServico.AdicionarCliente<ClienteValidador, ClienteDTO>(clienteDto).Id);
+            return Executar(() => _clienteServico.AdicionarCliente<ClienteValidador, ClienteDTO>(clienteDto).Id);
         }
 
         [HttpPut]
@@ -33,7 +32,7 @@ namespace Clientes.App.Controllers
             if (clienteDto == null)
                 return NotFound();
 
-            return Execute(() => _clienteServico.AtualizarCliente<ClienteValidador, ClienteDTO>(clienteDto));
+            return Executar(() => _clienteServico.AtualizarCliente<ClienteValidador, ClienteDTO>(clienteDto).Id);
         }
 
         [HttpDelete("{id}")]
@@ -42,7 +41,7 @@ namespace Clientes.App.Controllers
             if (id == 0)
                 return NotFound();
 
-            Execute(() =>
+            Executar(() =>
             {
                 _clienteServico.DeletarPorId(id);
                 return true;
@@ -52,21 +51,21 @@ namespace Clientes.App.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Listar()
         {
-            return Execute(() => _clienteServico.Listar());
+            return Executar(() => _clienteServico.Listar());
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult SelecionarPorId(int id)
         {
             if (id == 0)
                 return NotFound();
 
-            return Execute(() => _clienteServico.SelecionarPorId(id));
+            return Executar(() => _clienteServico.SelecionarClientePorId(id));
         }
 
-        private IActionResult Execute(Func<object> func)
+        private IActionResult Executar(Func<object> func)
         {
             try
             {
