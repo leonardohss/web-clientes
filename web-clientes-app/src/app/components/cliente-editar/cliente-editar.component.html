@@ -1,0 +1,33 @@
+<div>
+    <h3>Editar Cliente | ID: {{clienteForm.value.id}}</h3>
+</div>
+<form class="example-container" [formGroup]="clienteForm" (ngSubmit)="editarCliente()">
+    <mat-form-field>
+        <input matInput name="nome" placeholder="Nome" formControlName="nome">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput name="sobrenome" placeholder="Sobrenome" formControlName="sobrenome">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput name="cpf" placeholder="CPF" formControlName="cpf" cpf>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Data de Nascimento</mat-label>
+        <input matInput [matDatepicker]="picker" name="dataDeNascimento" formControlName="dataDeNascimento" mask="dd/MM/yyyy">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Profissão</mat-label>
+        <input type="text" aria-label="Profissão" matInput formControlName="profissao" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="obterDescricaoProfissaoPorId.bind(this)">
+            <mat-option *ngFor="let profissao of listaProfissoes" [value]="profissao.id">
+                {{profissao.descricao}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <button mat-flat-button type="submit" [disabled]="!clienteForm.valid" color="primary">Adicionar</button>
+    <br />
+    <button mat-flat-button color="warn" routerLink="/cliente-detalhe/{{clienteForm.value.id}}">Cancelar</button>
+</form>
