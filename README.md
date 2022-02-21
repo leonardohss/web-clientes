@@ -15,7 +15,7 @@ Tecnologias utilizadas:
     - .Net Core 5 SDK;
     - Angular CLI (comando cmd "npm install -g @angular/cli")
 
-2 - Criação da base Sql Server - Abrir a solution \ClientesAPI\ClientesAPI.sln no Visual Studio, verificar a connectionString na classe Clientes.Infra.Data/Contexto/SQlServerContextoFactory (apontar para a base de dados local), setar o projeto Clientes.Infra.Data como Inicial, abrir o "Package Manager Console" e executar o seguinte comando:
+2 - Criação da base Sql Server - Abrir a solution \ClientesAPI\ClientesAPI.sln no Visual Studio, verificar a connectionString na classe Clientes.Infra.Data\Contexto\SQlServerContextoFactory (apontar para a base de dados local), setar o projeto Clientes.Infra.Data como Inicial, abrir o "Package Manager Console" e executar o seguinte comando:
 
         update-database
 
